@@ -12,9 +12,17 @@ import static io.restassured.config.FailureConfig.failureConfig;
 import static io.restassured.config.RedirectConfig.redirectConfig;
 import static org.hamcrest.Matchers.equalTo;
 
+import static psrestassured.ConfigFactory.getDefaultConfig;
+
 public class _15ConfigDemo {
 
     public static final String BASE_URL = "https://api.github.com/";
+
+    @BeforeSuite
+    void setup() {
+        RestAssured.config = getDefaultConfig();
+    }
+
 
     @Test
     public void maxRedirectsTest() {
@@ -37,11 +45,6 @@ public class _15ConfigDemo {
         RestAssured.get(BASE_URL + "users/andrejs-ps")
                 .then()
                 .body("some.path", Matchers.equalTo("a thing"));
-    }
-
-    @BeforeSuite
-    void setup() {
-        RestAssured.config = getDefaultConfig();
     }
 
     @Test
